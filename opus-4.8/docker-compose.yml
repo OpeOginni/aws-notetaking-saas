@@ -1,0 +1,22 @@
+# Local development stack: PostgreSQL only.
+# Run the Next.js app on the host with `npm run dev` against this database.
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: notesaas-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: notesaas
+    ports:
+      - "5432:5432"
+    volumes:
+      - notesaas_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  notesaas_pgdata:

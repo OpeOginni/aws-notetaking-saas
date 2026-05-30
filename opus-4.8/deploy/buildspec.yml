@@ -1,0 +1,19 @@
+version: 0.2
+
+# CodeBuild buildspec: builds the application Docker image and pushes it to ECR.
+phases:
+  pre_build:
+    commands:
+      - echo "Logging in to Amazon ECR..."
+      - aws ecr get-login-password --region "$AWS_DEFAULT_REGION" | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+      - REPO_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPO}"
+  build:
+    commands:
+      - echo "Building Docker image..."
+      - docker build -t "${REPO_URI}:${IMAGE_TAG}" .
+      - docker tag "${REPO_URI}:${IMAGE_TAG}" "${REPO_URI}:$(date +%Y%m%d%H%M%S)"
+  post_build:
+    commands:
+      - echo "Pushing image to ECR..."
+      - docker push --all-tags "${REPO_URI}"
+      - echo "Done."
