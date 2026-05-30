@@ -1,0 +1,7 @@
+.next
+node_modules
+.env
+.env.local
+deployment-outputs.env
+npm-debug.log
+README.md
