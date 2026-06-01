@@ -38,6 +38,8 @@ Each model has its own directory with its code, infrastructure, and README.
 | **Time** | 60 mins | 37 mins |
 | **Tokens Used** | 71,400 | 103,000 |
 | **Cost** | $4.12 | $5.18 |
+| **Lines Added (PR)** | ~8,471 | ~3,884 |
+| **Files Changed (PR)** | 35 | 57 |
 | **Prompts Needed** | 2 (needed a follow-up for image feature) | 1 (one-shot) |
 | **Landing Page** | Great | Not as polished |
 | **Note Flow (create → dashboard → edit)** | Needs significant developer/designer work | Better flow |
