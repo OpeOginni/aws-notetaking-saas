@@ -22,14 +22,36 @@ Each model operates in its own directory. Click through below to see their imple
 
 Each model has its own directory with its code, infrastructure, and README.
 
-| Model | Directory |
-|-------|-----------|
-| Anthropic Claude Opus 4.8 | [`opus-4.8/`](./opus-4.8) |
-| OpenAI GPT-5.5 | [`gpt-5.5/`](./gpt-5.5) |
-| Zhipu GLM-5.1 | [`glm-5.1/`](./glm-5.1) |
-| Moonshot Kimi K2.6 | [`kimi-k2.6/`](./kimi-k2.6) |
+| Model | Directory | PR |
+|-------|-----------|----|
+| Anthropic Claude Opus 4.8 | [`opus-4.8/`](./opus-4.8) | [#1](https://github.com/OpeOginni/aws-notetaking-saas/pull/1) |
+| OpenAI GPT-5.5 | [`gpt-5.5/`](./gpt-5.5) | [#2](https://github.com/OpeOginni/aws-notetaking-saas/pull/2) |
+| Zhipu GLM-5.1 | [`glm-5.1/`](./glm-5.1) | |
+| Moonshot Kimi K2.6 | [`kimi-k2.6/`](./kimi-k2.6) | |
 
-*(Add a new model by creating a top-level `<model-id>/` directory and committing it.)*
+---
+
+## Model Metrics & Results
+
+| Metric | GPT-5.5 | Opus 4.8 |
+|--------|---------|----------|
+| **Time** | 60 mins | 37 mins |
+| **Tokens Used** | 71,400 | 103,000 |
+| **Cost** | $4.12 | $5.18 |
+| **Prompts Needed** | 2 (needed a follow-up for image feature) | 1 (one-shot) |
+| **Landing Page** | Great | Not as polished |
+| **Note Flow (create → dashboard → edit)** | Needs significant developer/designer work | Better flow |
+
+---
+
+## Observations & Patterns
+
+A few consistent behaviors stood out across all models:
+
+- **No Docker inside ECS** — Models recognized they couldn't run Docker within the ECS containers and cleanly pivoted to **AWS CodeBuild** for container image builds.
+- **Reproducible deployments** — The prompt explicitly asked models to make their deployment **reproducible**, which is why each one provided **provisioning/deployment scripts**. This made it straightforward to spin all resources and services down after testing.
+
+> **Tip for users:** Encourage your models to produce reproducible deployment scripts too. It makes teardown, re-testing, and sharing results much easier on your end.
 
 ---
 
